@@ -1,11 +1,15 @@
 "use client";
 
+import { useEffect } from "react";
 import { RotateCcw } from "lucide-react";
 import Botanical from "@/components/ui/Botanical";
 
 // Shown when a storefront page fails to load (e.g. the database is temporarily unreachable).
-// Error details stay in the server logs.
-export default function StoreError({ reset }) {
+export default function StoreError({ error, reset }) {
+  useEffect(() => {
+    console.error("Storefront Error:", error);
+  }, [error]);
+
   return (
     <section className="relative isolate overflow-hidden bg-gradient-to-br from-cream via-ivory to-sage/60 py-24 text-center">
       <Botanical name="corner" className="top-0 right-0 w-40 -scale-y-100 opacity-70" />

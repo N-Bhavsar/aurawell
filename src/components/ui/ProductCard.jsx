@@ -11,10 +11,10 @@ export default function ProductCard({ product, variant = "home" }) {
 
   return (
     <article
-      style={theme.style}
+      style={theme?.style}
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-shadow duration-300 hover:shadow-soft sm:rounded-3xl"
     >
-      <Link href={href} className={cn("relative block aspect-[4/5] overflow-hidden", theme.bg)} tabIndex={-1}>
+      <Link href={href} className={cn("relative block aspect-[4/5] overflow-hidden", theme?.bg)} tabIndex={-1}>
         <Image
           src={image}
           alt={`${name} — bottle of ${count} gummies`}
@@ -28,7 +28,7 @@ export default function ProductCard({ product, variant = "home" }) {
         <h3
           className={cn(
             "font-sans text-xs sm:text-sm font-semibold tracking-wide uppercase line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] flex items-center justify-center",
-            theme.accent
+            theme?.accent
           )}
         >
           <Link href={href} className="hover:underline">
@@ -43,7 +43,7 @@ export default function ProductCard({ product, variant = "home" }) {
         <div className="mt-auto pt-2.5 sm:pt-4">
           <div className="flex flex-col items-center justify-between gap-1 border-t border-line pt-2 text-xs sm:flex-row sm:gap-2 sm:pt-3">
             <span className="order-2 text-[10px] sm:text-xs text-muted sm:order-1 truncate max-w-full">
-              {count} Gummies · {flavour.replace(" Flavour", "")}
+              {count} Gummies{flavour ? ` · ${flavour.replace(" Flavour", "")}` : ""}
             </span>
             <div className="order-1 flex items-baseline gap-1.5 sm:order-2">
               <span className="font-serif text-base sm:text-lg font-semibold text-forest">
@@ -62,7 +62,7 @@ export default function ProductCard({ product, variant = "home" }) {
               product={product}
               className={cn(
                 "mt-2.5 w-full min-h-[38px] px-3 py-2 text-xs font-medium active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:px-5 sm:py-2.5 sm:text-sm",
-                theme.button
+                theme?.button
               )}
             />
           ) : (
