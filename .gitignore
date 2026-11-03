@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+graphify-out/
+
+# builds
+.next/
+.next-admin/
+.next-verify/
+out/
+
+# secrets — never commit real credentials
+.env
+.env.local
+.env*.local
+!.env.example
+# admin image uploads (runtime data, not source)
+/uploads/*
+!/uploads/.gitkeep
+
+# tooling
+.neon
+.vercel
+.claude/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

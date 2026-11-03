@@ -1,0 +1,80 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import AddToCartButton from "@/components/cart/AddToCartButton";
+import { cn, formatPrice } from "@/lib/utils";
+
+/** `variant="shop"` shows Add to Cart; the default (home) variant links to the product. */
+export default function ProductCard({ product, variant = "home" }) {
+  const { name, subtitle, description, price, mrp, count, flavour, image, theme, slug } = product;
+  const href = `/shop/${slug}`;
+
+  return (
+    <article
+      style={theme.style}
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-shadow duration-300 hover:shadow-soft sm:rounded-3xl"
+    >
+      <Link href={href} className={cn("relative block aspect-[4/5] overflow-hidden", theme.bg)} tabIndex={-1}>
+        <Image
+          src={image}
+          alt={`${name} — bottle of ${count} gummies`}
+          fill
+          sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 50vw"
+          className="object-contain p-3 transition-transform duration-500 group-hover:scale-[1.04] sm:p-5"
+        />
+      </Link>
+
+      <div className="flex flex-1 flex-col p-3 text-center sm:p-5">
+        <h3
+          className={cn(
+            "font-sans text-xs sm:text-sm font-semibold tracking-wide uppercase line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] flex items-center justify-center",
+            theme.accent
+          )}
+        >
+          <Link href={href} className="hover:underline">
+            {name}
+          </Link>
+        </h3>
+        <p className="mt-0.5 text-[11px] sm:text-xs font-medium text-ink/80 line-clamp-1">
+          {subtitle}
+        </p>
+        <p className="mt-2 hidden flex-1 text-xs leading-relaxed text-muted sm:block">{description}</p>
+
+        <div className="mt-auto pt-2.5 sm:pt-4">
+          <div className="flex flex-col items-center justify-between gap-1 border-t border-line pt-2 text-xs sm:flex-row sm:gap-2 sm:pt-3">
+            <span className="order-2 text-[10px] sm:text-xs text-muted sm:order-1 truncate max-w-full">
+              {count} Gummies · {flavour.replace(" Flavour", "")}
+            </span>
+            <div className="order-1 flex items-baseline gap-1.5 sm:order-2">
+              <span className="font-serif text-base sm:text-lg font-semibold text-forest">
+                {formatPrice(price)}
+              </span>
+              {mrp > price && (
+                <span className="text-[11px] text-muted line-through">
+                  {formatPrice(mrp)}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {variant === "shop" ? (
+            <AddToCartButton
+              product={product}
+              className={cn(
+                "mt-2.5 w-full min-h-[38px] px-3 py-2 text-xs font-medium active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:px-5 sm:py-2.5 sm:text-sm",
+                theme.button
+              )}
+            />
+          ) : (
+            <Link
+              href={href}
+              className="mt-2.5 inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-full bg-forest px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-forest-dark active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
+            >
+              View Product <ArrowRight className="size-3.5" aria-hidden />
+            </Link>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+}
