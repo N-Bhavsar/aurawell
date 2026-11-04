@@ -10,9 +10,10 @@ export default function MobileBottomNav() {
   const pathname = usePathname();
   const { count } = useCart();
 
-  // Hide bottom nav on checkout, admin, and product detail pages (which have their own sticky purchase bar)
+  // Hide bottom nav on checkout, admin, PDP, and active cart (which has its own Flipkart-style checkout bar)
   const isProductPage = pathname.startsWith("/shop/") && pathname !== "/shop";
-  if (pathname.startsWith("/checkout") || pathname.startsWith("/admin") || isProductPage) {
+  const isCartWithItems = pathname === "/cart" && count > 0;
+  if (pathname.startsWith("/checkout") || pathname.startsWith("/admin") || isProductPage || isCartWithItems) {
     return null;
   }
 

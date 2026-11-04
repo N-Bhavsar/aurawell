@@ -60,12 +60,12 @@ export default function ProductPurchase({ product }) {
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
+      <div className="mt-5 grid grid-cols-2 gap-2 sm:gap-3">
         <AddToCartButton
           product={product}
           quantity={quantity}
           className={cn(
-            "min-h-[46px] w-full py-3.5 text-sm font-semibold active:scale-[0.98] shadow-card",
+            "min-h-[44px] w-full py-2.5 px-3 text-xs sm:text-sm font-bold active:scale-[0.98] shadow-card rounded-xl",
             product.theme.button
           )}
         />
@@ -74,7 +74,7 @@ export default function ProductPurchase({ product }) {
           onClick={buyNow}
           disabled={soldOut}
           className={cn(
-            "inline-flex min-h-[46px] w-full items-center justify-center gap-1.5 rounded-full border-2 bg-white py-3 text-sm font-semibold transition-colors hover:bg-cream active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50",
+            "inline-flex min-h-[44px] w-full items-center justify-center gap-1.5 rounded-xl border-2 bg-white py-2.5 px-3 text-xs sm:text-sm font-bold transition-colors hover:bg-cream active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50",
             product.theme.outline
           )}
         >

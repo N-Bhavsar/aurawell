@@ -9,7 +9,7 @@ import Button from "@/components/ui/Button";
 import { formatPrice } from "@/lib/utils";
 
 export default function CartView() {
-  const { items, ready, updateQuantity, removeItem } = useCart();
+  const { items, ready, updateQuantity, removeItem, total, shipping } = useCart();
 
   if (!ready) return <div className="h-64 animate-pulse rounded-2xl sm:rounded-[2rem] bg-cream" aria-busy="true" />;
 
@@ -29,7 +29,7 @@ export default function CartView() {
   }
 
   return (
-    <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.5fr_1fr]">
+    <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.5fr_1fr] pb-20 lg:pb-0">
       <div className="rounded-2xl sm:rounded-[2rem] border border-line bg-white p-4 sm:p-8 shadow-card">
         <div className="hidden grid-cols-[2fr_1fr_1fr_1fr] border-b border-line pb-3 text-xs tracking-wide text-muted uppercase sm:grid">
           <span>Product</span>
@@ -156,6 +156,29 @@ export default function CartView() {
             Proceed to Checkout <ArrowRight className="size-4" aria-hidden />
           </Button>
         </OrderSummary>
+      </div>
+
+      {/* Mobile Sticky Checkout Bar (Flipkart / Amazon style) */}
+      <div className="fixed bottom-0 inset-x-0 z-40 border-t border-line/90 bg-white/95 backdrop-blur-md pb-[max(0.65rem,env(safe-area-inset-bottom))] pt-2.5 px-4 shadow-[0_-4px_24px_rgba(29,43,34,0.12)] lg:hidden">
+        <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
+          <div>
+            <p className="text-[10px] uppercase font-bold tracking-wider text-muted">Total Amount</p>
+            <p className="font-serif text-lg font-bold text-forest leading-none mt-0.5">
+              {formatPrice(total)}
+            </p>
+            {shipping === 0 && (
+              <span className="text-[10px] font-semibold text-leaf">⚡ Free Delivery</span>
+            )}
+          </div>
+
+          <Link
+            href="/checkout"
+            className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-xl bg-forest px-6 py-2.5 text-xs font-bold text-white shadow-card transition active:scale-95 hover:bg-forest-dark"
+          >
+            <span>Proceed to Checkout</span>
+            <ArrowRight className="size-4" />
+          </Link>
+        </div>
       </div>
     </div>
   );

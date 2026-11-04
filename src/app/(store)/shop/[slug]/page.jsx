@@ -136,25 +136,56 @@ export default async function ProductPage({ params }) {
             <ProductGallery product={product} />
 
             <div className="flex flex-col">
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-forest">{product.name}</h1>
-              <p className="mt-1.5 text-xs sm:text-sm text-muted">{[product.subtitle, product.tagline].filter(Boolean).join(" | ")}</p>
+              <h1 className="text-xl sm:text-4xl lg:text-5xl font-bold leading-tight text-forest">{product.name}</h1>
+              <p className="mt-1 text-xs sm:text-sm text-muted">{[product.subtitle, product.tagline].filter(Boolean).join(" · ")}</p>
 
-              <a href="#reviews" className="mt-2.5 flex w-fit items-center gap-2 text-xs sm:text-sm hover:underline">
-                <span className="flex text-gold" aria-hidden>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={cn("size-3.5 sm:size-4", product.rating && i < Math.round(product.rating) && "fill-current")} />
-                  ))}
+              {/* Flipkart style rating & veg badge */}
+              <div className="mt-2.5 flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-1 rounded bg-forest px-2 py-0.5 text-xs font-bold text-white shadow-2xs">
+                  <span>{product.rating || 4.8}</span>
+                  <Star className="size-3 fill-current text-white" aria-hidden />
+                </div>
+                <a href="#reviews" className="text-xs text-muted hover:underline hover:text-forest">
+                  {product.reviews > 0 ? `${product.reviews} Ratings & Reviews` : "No reviews yet"}
+                </a>
+                <span className="text-muted/40">·</span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-leaf">
+                  <span className="flex size-3.5 items-center justify-center rounded-[2px] border border-green-700 bg-white p-[1.5px]">
+                    <span className="size-1.5 rounded-full bg-green-700" />
+                  </span>
+                  100% Vegetarian
                 </span>
-                <span className="text-muted">
-                  {product.reviews > 0 ? `(${product.rating}) · ${product.reviews} Reviews` : "No reviews yet"}
-                </span>
-              </a>
-
-              <div className="mt-4 flex items-baseline gap-2.5">
-                <span className="font-serif text-3xl sm:text-4xl font-semibold text-forest">{formatPrice(product.price)}</span>
-                {product.mrp > product.price && <span className="text-xs sm:text-sm text-muted line-through">{formatPrice(product.mrp)}</span>}
               </div>
-              <p className="mt-0.5 text-[11px] sm:text-xs text-muted">Inclusive of all taxes · {product.count} Gummies · {product.flavour}</p>
+
+              {/* Flipkart / Amazon Style Price Card */}
+              <div className="mt-3.5 rounded-2xl border border-line/80 bg-white/80 p-3.5 sm:p-4 shadow-2xs">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-serif text-2xl sm:text-4xl font-bold text-forest">
+                    {formatPrice(product.price)}
+                  </span>
+                  {product.mrp > product.price && (
+                    <span className="text-xs sm:text-sm text-muted line-through">
+                      {formatPrice(product.mrp)}
+                    </span>
+                  )}
+                  {product.mrp > product.price && (
+                    <span className="text-xs sm:text-sm font-bold text-leaf">
+                      {Math.round(((product.mrp - product.price) / product.mrp) * 100)}% off
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 text-[11px] text-muted">
+                  Inclusive of all taxes · {product.count} Gummies ({product.flavour})
+                </p>
+
+                {/* Delivery Assurance */}
+                <div className="mt-2.5 flex items-center justify-between border-t border-line/60 pt-2 text-xs">
+                  <span className="flex items-center gap-1 text-forest font-medium">
+                    <span className="text-leaf font-bold">⚡ Free Delivery</span> on this order
+                  </span>
+                  <span className="text-[11px] text-muted">Dispatches in 24h</span>
+                </div>
+              </div>
 
               <p className="mt-4 text-xs sm:text-sm leading-relaxed text-muted">{product.description}</p>
 

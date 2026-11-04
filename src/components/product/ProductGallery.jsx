@@ -133,24 +133,31 @@ export default function ProductGallery({ product }) {
 
         {/* Mobile pagination dots with thumb-friendly tap targets */}
         {images.length > 1 && (
-          <div className="absolute bottom-2.5 inset-x-0 flex justify-center gap-0.5 sm:hidden">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Go to slide ${i + 1}`}
-                onClick={() => setActive(i)}
-                className="flex items-center justify-center p-1.5 active:scale-95"
-              >
-                <span
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    active === i ? "w-5 bg-forest shadow-xs" : "w-1.5 bg-forest/35"
-                  )}
-                />
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="absolute bottom-2.5 inset-x-0 flex justify-center gap-0.5 sm:hidden">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Go to slide ${i + 1}`}
+                  onClick={() => setActive(i)}
+                  className="flex items-center justify-center p-1.5 active:scale-95"
+                >
+                  <span
+                    className={cn(
+                      "h-1.5 rounded-full transition-all duration-300",
+                      active === i ? "w-5 bg-forest shadow-xs" : "w-1.5 bg-forest/35"
+                    )}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Flipkart-style 1/4 slide counter */}
+            <span className="absolute bottom-3 right-3 z-10 rounded-full bg-ink/60 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-xs sm:hidden">
+              {active + 1}/{images.length}
+            </span>
+          </>
         )}
 
         <button

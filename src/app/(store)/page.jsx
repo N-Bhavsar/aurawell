@@ -1,3 +1,4 @@
+import CategoryStoryBar from "@/components/home/CategoryStoryBar";
 import HeroSection from "@/components/home/HeroSection";
 import ProductShowcase from "@/components/home/ProductShowcase";
 import BenefitsSection from "@/components/home/BenefitsSection";
@@ -13,6 +14,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <CategoryStoryBar />
       <HeroSection />
       <ProductShowcase products={products} />
       <BenefitsSection />

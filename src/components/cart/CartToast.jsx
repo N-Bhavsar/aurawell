@@ -32,9 +32,8 @@ export default function CartToast({ toast, onDismiss }) {
     <div
       role="status"
       aria-live="polite"
-      className={`fixed top-16 inset-x-3 sm:inset-x-auto sm:right-6 sm:w-96 z-50 transition-all duration-300 ease-out ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
-      }`}
+      className={`fixed top-16 inset-x-3 sm:inset-x-auto sm:right-6 sm:w-96 z-50 transition-all duration-300 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
     >
       <div className="rounded-2xl border border-line/80 bg-white/95 p-3.5 shadow-soft backdrop-blur-md sm:p-4">
         <div className="flex items-start gap-3">
