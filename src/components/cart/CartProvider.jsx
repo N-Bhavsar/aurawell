@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { calculateShipping, MAX_QUANTITY_PER_ITEM } from "@/lib/pricing-rules";
+import CartToast from "@/components/cart/CartToast";
 
 const CartContext = createContext(null);
 const STORAGE_KEY = "aurawell-cart-v2";
@@ -13,6 +14,7 @@ const STORAGE_KEY = "aurawell-cart-v2";
 export default function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [ready, setReady] = useState(false);
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     try {
@@ -41,6 +43,11 @@ export default function CartProvider({ children }) {
       const { id, slug, name, price, image, count } = product;
       return [...prev, { productId: id, slug, name, price, image, count, quantity: Math.min(quantity, MAX_QUANTITY_PER_ITEM) }];
     });
+    setToast({ product, quantity, key: Date.now() });
+  }, []);
+
+  const dismissToast = useCallback(() => {
+    setToast(null);
   }, []);
 
   const updateQuantity = useCallback((productId, quantity) => {
@@ -72,7 +79,12 @@ export default function CartProvider({ children }) {
     return { items, ready, count, subtotal, shipping, total: subtotal + shipping, addItem, updateQuantity, removeItem, clearCart, syncWithServer };
   }, [items, ready, addItem, updateQuantity, removeItem, clearCart, syncWithServer]);
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider value={value}>
+      {children}
+      <CartToast toast={toast} onDismiss={dismissToast} />
+    </CartContext.Provider>
+  );
 }
 
 export function useCart() {

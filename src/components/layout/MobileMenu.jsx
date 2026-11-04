@@ -119,13 +119,36 @@ export default function MobileMenu({ links }) {
 
                 <div className="mt-6 border-t border-line/80 pt-5">
                   <p className="px-4 text-xs font-semibold uppercase tracking-wider text-muted">
+                    Our Gummies
+                  </p>
+                  <div className="mt-2 grid grid-cols-2 gap-1.5 px-2">
+                    {[
+                      { name: "Daily Nutra", slug: "daily-nutra-gummy" },
+                      { name: "Iron Glow", slug: "iron-glow-gummy" },
+                      { name: "PMS Care", slug: "pms-care-gummy" },
+                      { name: "Gut Comfort", slug: "gut-comfort-gummy" },
+                    ].map((g) => (
+                      <Link
+                        key={g.slug}
+                        href={`/shop/${g.slug}`}
+                        onClick={() => setOpen(false)}
+                        className="rounded-xl border border-line bg-white/70 px-3 py-2 text-xs font-medium text-forest hover:bg-sage/50 active:scale-95 transition truncate text-center"
+                      >
+                        {g.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-5 border-t border-line/80 pt-4">
+                  <p className="px-4 text-xs font-semibold uppercase tracking-wider text-muted">
                     Quick Actions
                   </p>
-                  <div className="mt-2 space-y-2">
+                  <div className="mt-2 space-y-1">
                     <Link
                       href="/cart"
                       onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-ink hover:bg-sage/50"
+                      className="flex items-center gap-3 rounded-xl px-4 py-2 text-sm font-medium text-ink hover:bg-sage/50 active:bg-sage/70"
                     >
                       <ShoppingBag className="size-4 text-forest" />
                       <span>Shopping Cart</span>
@@ -133,7 +156,7 @@ export default function MobileMenu({ links }) {
                     <Link
                       href="/track-order"
                       onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-ink hover:bg-sage/50"
+                      className="flex items-center gap-3 rounded-xl px-4 py-2 text-sm font-medium text-ink hover:bg-sage/50 active:bg-sage/70"
                     >
                       <Truck className="size-4 text-forest" />
                       <span>Track Your Order</span>
@@ -142,8 +165,8 @@ export default function MobileMenu({ links }) {
                 </div>
               </div>
 
-              {/* Bottom drawer footer */}
-              <div className="border-t border-line bg-white/60 p-4">
+              {/* Bottom drawer footer with safe-area bottom padding */}
+              <div className="border-t border-line bg-white/80 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
                 <div className="flex flex-col gap-2 text-xs text-muted">
                   <a
                     href={`tel:${contact.phone.replace(/\s/g, "")}`}

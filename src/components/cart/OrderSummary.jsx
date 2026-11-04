@@ -57,12 +57,27 @@ export default function OrderSummary({ showItems = false, quote, children }) {
         <p className="mt-2.5 text-[11px] sm:text-xs text-muted">Final prices are confirmed at checkout.</p>
       )}
 
-      {subtotal > 0 && remaining > 0 && (
-        <p className="mt-4 flex items-center gap-2 rounded-xl bg-sage/60 px-3.5 py-2.5 text-xs font-medium text-forest">
+      {subtotal > 0 && remaining > 0 ? (
+        <div className="mt-4 rounded-xl bg-sage/60 p-3 text-xs text-forest">
+          <div className="flex items-center justify-between font-medium">
+            <span className="flex items-center gap-1.5">
+              <Truck className="size-4 shrink-0" aria-hidden /> Free Shipping
+            </span>
+            <span className="font-semibold">Add {formatPrice(remaining)}</span>
+          </div>
+          <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-cream">
+            <div
+              className="h-full rounded-full bg-leaf transition-all duration-500"
+              style={{ width: `${Math.min(100, Math.max(8, (subtotal / (FREE_SHIPPING_THRESHOLD / 100)) * 100))}%` }}
+            />
+          </div>
+        </div>
+      ) : subtotal > 0 ? (
+        <p className="mt-4 flex items-center gap-2 rounded-xl bg-sage/60 px-3.5 py-2.5 text-xs font-semibold text-leaf">
           <Truck className="size-4 shrink-0" aria-hidden />
-          Add {formatPrice(remaining)} more for free shipping
+          You&apos;ve unlocked free shipping!
         </p>
-      )}
+      ) : null}
 
       {children}
     </div>

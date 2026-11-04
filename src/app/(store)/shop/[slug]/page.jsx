@@ -10,6 +10,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import TrustBadges from "@/components/ui/TrustBadges";
 import Botanical from "@/components/ui/Botanical";
 import ProductReviews from "@/components/product/ProductReviews";
+import StickyProductBar from "@/components/product/StickyProductBar";
 import { getProductBySlug, getProductReviews, getProducts } from "@/lib/catalog";
 import { cn, formatPrice } from "@/lib/utils";
 
@@ -197,6 +198,8 @@ export default async function ProductPage({ params }) {
           </ul>
         </div>
       </section>
+
+      <StickyProductBar product={product} />
     </div>
   );
 }

@@ -10,8 +10,9 @@ export default function MobileBottomNav() {
   const pathname = usePathname();
   const { count } = useCart();
 
-  // Hide bottom nav on checkout to keep focus on payment
-  if (pathname.startsWith("/checkout") || pathname.startsWith("/admin")) {
+  // Hide bottom nav on checkout, admin, and product detail pages (which have their own sticky purchase bar)
+  const isProductPage = pathname.startsWith("/shop/") && pathname !== "/shop";
+  if (pathname.startsWith("/checkout") || pathname.startsWith("/admin") || isProductPage) {
     return null;
   }
 

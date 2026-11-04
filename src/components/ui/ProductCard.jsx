@@ -8,6 +8,7 @@ import { cn, formatPrice } from "@/lib/utils";
 export default function ProductCard({ product, variant = "home" }) {
   const { name, subtitle, description, price, mrp, count, flavour, image, theme, slug } = product;
   const href = `/shop/${slug}`;
+  const discount = mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0;
 
   return (
     <article
@@ -15,12 +16,26 @@ export default function ProductCard({ product, variant = "home" }) {
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-shadow duration-300 hover:shadow-soft sm:rounded-3xl"
     >
       <Link href={href} className={cn("relative block aspect-[4/5] overflow-hidden", theme?.bg)} tabIndex={-1}>
+        {/* Badges on image */}
+        <div className="absolute top-2.5 inset-x-2.5 z-10 flex items-center justify-between pointer-events-none sm:top-3.5 sm:inset-x-3.5">
+          {discount > 0 ? (
+            <span className="rounded-full bg-forest px-2 py-0.5 text-[10px] font-bold tracking-tight text-white shadow-xs sm:px-2.5 sm:text-xs">
+              {discount}% OFF
+            </span>
+          ) : <span />}
+
+          <span className="inline-flex items-center gap-1 rounded-full border border-forest/15 bg-white/90 px-2 py-0.5 text-[9px] font-semibold text-forest backdrop-blur-xs shadow-xs sm:text-[10px]">
+            <span className="size-1.5 rounded-full bg-leaf" aria-hidden />
+            100% Veg
+          </span>
+        </div>
+
         <Image
           src={image}
           alt={`${name} — bottle of ${count} gummies`}
           fill
           sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 50vw"
-          className="object-contain p-3 transition-transform duration-500 group-hover:scale-[1.04] sm:p-5"
+          className="object-contain p-3.5 transition-transform duration-500 group-hover:scale-[1.04] sm:p-5"
         />
       </Link>
 
@@ -41,12 +56,12 @@ export default function ProductCard({ product, variant = "home" }) {
         <p className="mt-2 hidden flex-1 text-xs leading-relaxed text-muted sm:block">{description}</p>
 
         <div className="mt-auto pt-2.5 sm:pt-4">
-          <div className="flex flex-col items-center justify-between gap-1 border-t border-line pt-2 text-xs sm:flex-row sm:gap-2 sm:pt-3">
+          <div className="flex flex-col items-center justify-between gap-0.5 border-t border-line pt-2 text-xs sm:flex-row sm:gap-2 sm:pt-3">
             <span className="order-2 text-[10px] sm:text-xs text-muted sm:order-1 truncate max-w-full">
               {count} Gummies{flavour ? ` · ${flavour.replace(" Flavour", "")}` : ""}
             </span>
             <div className="order-1 flex items-baseline gap-1.5 sm:order-2">
-              <span className="font-serif text-base sm:text-lg font-semibold text-forest">
+              <span className="font-serif text-base sm:text-lg font-bold text-forest">
                 {formatPrice(price)}
               </span>
               {mrp > price && (
@@ -61,14 +76,14 @@ export default function ProductCard({ product, variant = "home" }) {
             <AddToCartButton
               product={product}
               className={cn(
-                "mt-2.5 w-full min-h-[38px] px-3 py-2 text-xs font-medium active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:px-5 sm:py-2.5 sm:text-sm",
+                "mt-2.5 w-full min-h-[38px] px-3 py-2 text-xs font-semibold active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:px-5 sm:py-2.5 sm:text-sm",
                 theme?.button
               )}
             />
           ) : (
             <Link
               href={href}
-              className="mt-2.5 inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-full bg-forest px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-forest-dark active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
+              className="mt-2.5 inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-full bg-forest px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-forest-dark active:scale-[0.98] sm:mt-4 sm:min-h-[42px] sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
             >
               View Product <ArrowRight className="size-3.5" aria-hidden />
             </Link>

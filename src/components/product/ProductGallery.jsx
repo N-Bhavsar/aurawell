@@ -65,7 +65,7 @@ export default function ProductGallery({ product }) {
   return (
     <div className="flex flex-col-reverse gap-3 sm:gap-4 sm:flex-row">
       {/* Thumbnails row */}
-      <ul className="no-scrollbar flex gap-2.5 overflow-x-auto py-1 sm:flex-col sm:overflow-visible">
+      <ul className="no-scrollbar flex gap-2 overflow-x-auto py-1 sm:flex-col sm:overflow-visible">
         {images.map((img, i) => (
           <li key={`${img.src}-${i}`} className="shrink-0">
             <button
@@ -74,7 +74,7 @@ export default function ProductGallery({ product }) {
               aria-label={`Show image ${i + 1}`}
               aria-pressed={active === i}
               className={cn(
-                "relative block size-16 sm:size-20 overflow-hidden rounded-xl sm:rounded-2xl border-2 bg-white transition-all active:scale-95",
+                "relative block size-14 sm:size-20 overflow-hidden rounded-xl sm:rounded-2xl border-2 bg-white transition-all active:scale-95",
                 active === i ? "border-forest shadow-xs" : "border-line opacity-75 hover:opacity-100 hover:border-sage-dark"
               )}
             >
@@ -131,20 +131,24 @@ export default function ProductGallery({ product }) {
           </div>
         )}
 
-        {/* Mobile pagination dots */}
+        {/* Mobile pagination dots with thumb-friendly tap targets */}
         {images.length > 1 && (
-          <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5 sm:hidden">
+          <div className="absolute bottom-2.5 inset-x-0 flex justify-center gap-0.5 sm:hidden">
             {images.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 aria-label={`Go to slide ${i + 1}`}
                 onClick={() => setActive(i)}
-                className={cn(
-                  "h-1.5 rounded-full transition-all",
-                  active === i ? "w-5 bg-forest" : "w-1.5 bg-forest/30"
-                )}
-              />
+                className="flex items-center justify-center p-1.5 active:scale-95"
+              >
+                <span
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    active === i ? "w-5 bg-forest shadow-xs" : "w-1.5 bg-forest/35"
+                  )}
+                />
+              </button>
             ))}
           </div>
         )}
@@ -166,7 +170,7 @@ export default function ProductGallery({ product }) {
             role="dialog"
             aria-modal="true"
             aria-label={`${product.name} images`}
-            className="fixed inset-0 z-[60] flex flex-col bg-ink/95 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] flex flex-col bg-ink/95 backdrop-blur-sm pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
             onClick={(e) => e.target === e.currentTarget && close()}
           >
             <div className="flex items-center justify-between px-4 py-3 text-white sm:px-6">

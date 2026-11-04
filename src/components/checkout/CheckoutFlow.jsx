@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AlertCircle, ArrowLeft, ArrowRight, Check, Lock, ShieldCheck } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, Check, ChevronDown, Lock, ShieldCheck, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart/CartProvider";
 import OrderSummary from "@/components/cart/OrderSummary";
 import FormField from "@/components/ui/FormField";
@@ -10,7 +10,7 @@ import Button from "@/components/ui/Button";
 import { apiFetch } from "@/lib/api-client";
 import { INDIAN_STATES } from "@/lib/constants";
 import { formatPaise } from "@/lib/pricing-rules";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 
 const steps = ["Details", "Review", "Payment"];
 const DRAFT_KEY = "aurawell-checkout-details";
@@ -51,7 +51,7 @@ function loadRazorpay() {
 const cartLines = (items) => items.map((i) => ({ productId: i.productId, quantity: i.quantity }));
 
 export default function CheckoutFlow() {
-  const { items, ready, clearCart, syncWithServer, removeItem, updateQuantity } = useCart();
+  const { items, ready, clearCart, syncWithServer, removeItem, updateQuantity, total: cartTotal } = useCart();
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [customer, setCustomer] = useState(emptyCustomer);
@@ -60,6 +60,7 @@ export default function CheckoutFlow() {
   const [busy, setBusy] = useState(false);
   const [alert, setAlert] = useState(null);
   const [completed, setCompleted] = useState(false);
+  const [mobileSummaryOpen, setMobileSummaryOpen] = useState(false);
   const checkoutKey = useRef(null);
 
   // Restore contact details (not payment data) for convenience within this browser session.
@@ -213,22 +214,57 @@ export default function CheckoutFlow() {
 
   return (
     <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.5fr_1fr]">
-      <div className="rounded-2xl sm:rounded-[2rem] border border-line bg-white p-5 sm:p-10 shadow-card">
+      {/* Mobile-only collapsible order summary at top */}
+      <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card lg:hidden">
+        <button
+          type="button"
+          onClick={() => setMobileSummaryOpen((prev) => !prev)}
+          aria-expanded={mobileSummaryOpen}
+          className="flex w-full items-center justify-between px-4 py-3.5 text-xs font-medium text-forest transition hover:bg-cream/50 active:bg-cream"
+        >
+          <div className="flex items-center gap-2">
+            <span className="flex size-7 items-center justify-center rounded-full bg-sage text-forest">
+              <ShoppingBag className="size-3.5" />
+            </span>
+            <span className="font-semibold text-ink">
+              {mobileSummaryOpen ? "Hide order summary" : "Show order summary"}
+            </span>
+            <ChevronDown
+              className={cn("size-3.5 text-muted transition-transform duration-200", mobileSummaryOpen && "rotate-180")}
+            />
+          </div>
+          <span className="font-serif text-sm font-bold text-forest">
+            {quote ? formatPaise(quote.totalAmount) : formatPrice(cartTotal)}
+          </span>
+        </button>
+
+        {mobileSummaryOpen && (
+          <div className="border-t border-line bg-cream/20 p-4">
+            <OrderSummary showItems quote={step > 0 ? quote : null} />
+          </div>
+        )}
+      </div>
+
+      <div className="rounded-2xl sm:rounded-[2rem] border border-line bg-white p-4.5 sm:p-10 shadow-card">
         <ol className="mb-6 sm:mb-10 flex items-center">
           {steps.map((label, i) => (
             <li key={label} className={cn("flex items-center", i < steps.length - 1 && "flex-1")}>
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 sm:gap-2">
                 <span
                   className={cn(
-                    "flex size-7 sm:size-8 items-center justify-center rounded-full text-xs sm:text-sm font-semibold",
+                    "flex size-6 sm:size-8 shrink-0 items-center justify-center rounded-full text-[11px] sm:text-sm font-semibold",
                     i < step ? "bg-leaf text-white" : i === step ? "bg-forest text-white" : "bg-cream text-muted"
                   )}
                 >
-                  {i < step ? <Check className="size-3.5 sm:size-4" /> : i + 1}
+                  {i < step ? <Check className="size-3 sm:size-4 stroke-[2.5]" /> : i + 1}
                 </span>
-                <span className={cn("text-xs sm:text-sm", i === step ? "font-semibold text-forest" : "text-muted")}>{label}</span>
+                <span className={cn("text-[11px] sm:text-sm", i === step ? "font-semibold text-forest" : "text-muted")}>
+                  {label}
+                </span>
               </span>
-              {i < steps.length - 1 && <span className={cn("mx-2 sm:mx-3 h-px flex-1", i < step ? "bg-leaf" : "bg-line")} />}
+              {i < steps.length - 1 && (
+                <span className={cn("mx-1.5 sm:mx-3 h-px flex-1 min-w-2", i < step ? "bg-leaf" : "bg-line")} />
+              )}
             </li>
           ))}
         </ol>

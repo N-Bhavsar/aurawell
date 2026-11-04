@@ -7,7 +7,7 @@ export default function StoreLayout({ children }) {
   return (
     <CartProvider>
       <Navbar />
-      <main className="pb-14 lg:pb-0">{children}</main>
+      <main className="min-w-0">{children}</main>
       <Footer />
       <MobileBottomNav />
     </CartProvider>

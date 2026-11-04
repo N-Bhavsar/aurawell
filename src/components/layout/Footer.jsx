@@ -109,7 +109,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="border-t border-white/10 pb-[calc(4.75rem+env(safe-area-inset-bottom,0px))] sm:pb-0">
         <div className="relative container-page flex flex-col items-center justify-between gap-2.5 py-4 sm:py-5 text-[11px] sm:text-xs text-white/60 sm:flex-row text-center sm:text-left">
           <p>© {year} Aaurawell Nutra. All rights reserved.</p>
           <p>Nutraceutical — not for medicinal use.</p>

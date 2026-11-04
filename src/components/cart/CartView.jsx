@@ -50,7 +50,7 @@ export default function CartView() {
                 <div className="flex flex-1 flex-col justify-between">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <Link href={`/shop/${item.slug}`} className="font-medium text-sm text-ink line-clamp-1 hover:text-forest">
+                      <Link href={`/shop/${item.slug}`} className="font-semibold text-xs sm:text-sm text-ink line-clamp-1 hover:text-forest">
                         {item.name}
                       </Link>
                       <p className="text-[11px] text-muted">{item.count} Gummies · {formatPrice(item.price)} each</p>
@@ -59,14 +59,14 @@ export default function CartView() {
                       type="button"
                       aria-label={`Remove ${item.name}`}
                       onClick={() => removeItem(item.productId)}
-                      className="p-1 text-muted hover:text-crimson active:scale-95"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-muted transition hover:bg-rose hover:text-crimson active:scale-90"
                     >
                       <Trash2 className="size-4" />
                     </button>
                   </div>
 
                   <div className="mt-3 flex items-center justify-between">
-                    <div className="inline-flex items-center rounded-full border border-line bg-ivory">
+                    <div className="inline-flex items-center rounded-full border border-line bg-ivory shadow-xs">
                       <button
                         type="button"
                         aria-label={`Decrease ${item.name} quantity`}

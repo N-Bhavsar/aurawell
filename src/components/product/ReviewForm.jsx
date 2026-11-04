@@ -62,9 +62,9 @@ export default function ReviewForm({ slug, productName }) {
               aria-pressed={rating === n}
               onClick={() => setRating(n)}
               onMouseEnter={() => setHover(n)}
-              className="rounded p-0.5 text-gold"
+              className="rounded p-1.5 text-gold transition-transform active:scale-110"
             >
-              <Star className={cn("size-7", n <= (hover || rating) && "fill-current")} />
+              <Star className={cn("size-7 sm:size-8", n <= (hover || rating) && "fill-current")} />
             </button>
           ))}
         </div>

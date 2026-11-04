@@ -84,19 +84,23 @@ export default function TestimonialCarousel({ testimonials }) {
         </button>
       </div>
 
-      {/* Mobile dot pagination */}
+      {/* Mobile dot pagination with thumb-friendly hit targets */}
       {testimonials.length > 1 && (
-        <div className="mt-4 flex justify-center gap-1.5 md:hidden">
+        <div className="mt-4 flex justify-center gap-1 md:hidden">
           {testimonials.map((_, i) => (
             <button
               key={i}
               type="button"
               aria-label={`Go to testimonial ${i + 1}`}
               onClick={() => scrollToIndex(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                activeIndex === i ? "w-5 bg-forest" : "w-1.5 bg-forest/20"
-              }`}
-            />
+              className="flex items-center justify-center p-2 active:scale-95"
+            >
+              <span
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  activeIndex === i ? "w-5 bg-forest" : "w-1.5 bg-forest/20"
+                }`}
+              />
+            </button>
           ))}
         </div>
       )}
