@@ -55,7 +55,7 @@ export default function ProductCard({ product, variant = "shop" }) {
         </div>
 
         {/* Product Title */}
-        <h3 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-ink leading-snug line-clamp-1 group-hover:text-forest">
+        <h3 className="mt-1.5 font-sans text-xs sm:text-sm font-bold text-ink leading-snug line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] group-hover:text-forest">
           <Link href={href} className="hover:underline">
             {name}
           </Link>

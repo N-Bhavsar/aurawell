@@ -17,7 +17,26 @@ async function main() {
   for (const [index, p] of products.entries()) {
     const existing = await prisma.product.findUnique({ where: { slug: p.slug }, select: { id: true } });
     if (existing) {
-      console.log(`• ${p.name} already exists — skipped`);
+      await prisma.product.update({
+        where: { slug: p.slug },
+        data: {
+          name: p.name,
+          shortDescription: p.description,
+          description: p.about,
+          mainImage: p.image,
+          heroImage: p.heroImage,
+          galleryImages: p.galleryImages ?? [p.banner],
+          ingredients: p.ingredients.map(([name, quantity, unit]) => ({ name, quantity, unit })),
+          benefits: p.benefits,
+          category: p.category,
+          subtitle: p.subtitle,
+          tagline: p.tagline,
+          flavour: p.flavour,
+          servingCount: p.count,
+          scriptLines: p.script,
+        },
+      });
+      console.log(`✓ Updated ${p.name}`);
       continue;
     }
     await prisma.product.create({
@@ -32,7 +51,7 @@ async function main() {
         sku: SKU[p.slug] ?? null,
         mainImage: p.image,
         heroImage: p.heroImage,
-        galleryImages: [p.banner],
+        galleryImages: p.galleryImages ?? [p.banner],
         ingredients: p.ingredients.map(([name, quantity, unit]) => ({ name, quantity, unit })),
         benefits: p.benefits,
         usageInstructions: p.suggestedUse,

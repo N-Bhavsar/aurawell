@@ -60,7 +60,7 @@ export default function MobileMenu({ links }) {
             <aside
               id="mobile-menu"
               aria-label="Mobile navigation"
-              inert={!open ? "" : undefined}
+              inert={!open ? true : undefined}
               className={`fixed inset-y-0 right-0 z-50 flex w-[86%] max-w-sm flex-col bg-cream shadow-2xl transition-transform duration-300 ease-out ${
                 open ? "visible translate-x-0" : "invisible translate-x-full"
               }`}

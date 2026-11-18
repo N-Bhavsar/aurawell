@@ -40,7 +40,23 @@ export default function ProductTabs({ product }) {
           <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-2">
             <div>
               <h2 className="text-2xl sm:text-3xl font-semibold">About This Product</h2>
-              <p className="mt-3 sm:mt-4 text-sm leading-relaxed text-muted sm:text-base">{product.about}</p>
+              <p className="mt-3 sm:mt-4 text-sm leading-relaxed text-muted sm:text-base whitespace-pre-line">{product.about}</p>
+
+              {product.benefits && product.benefits.length > 0 && (
+                <div className="mt-6 rounded-2xl border border-line/80 bg-white p-4 sm:p-5 shadow-2xs">
+                  <h3 className="text-sm sm:text-base font-semibold text-forest">Why You&apos;ll Love It</h3>
+                  <ul className="mt-3 space-y-2">
+                    {product.benefits.map((b) => (
+                      <li key={b.label} className="flex items-center gap-2.5 text-xs sm:text-sm text-ink">
+                        <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-forest/10 text-forest text-[11px] font-bold">
+                          ✓
+                        </span>
+                        <span>{b.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="relative aspect-[4/3] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden rounded-2xl sm:rounded-[2rem] shadow-card">
               <Image
@@ -71,8 +87,8 @@ export default function ProductTabs({ product }) {
                   {product.ingredients.map(([name, qty, unit]) => (
                     <tr key={name} className="border-t border-line">
                       <td className="px-3.5 py-2.5 sm:px-5 sm:py-3 text-ink font-medium">{name}</td>
-                      <td className="px-3.5 py-2.5 sm:px-5 sm:py-3 text-muted">{qty}</td>
-                      <td className="px-3.5 py-2.5 sm:px-5 sm:py-3 text-muted">{unit}</td>
+                      <td className="px-3.5 py-2.5 sm:px-5 sm:py-3 text-muted">{qty || "—"}</td>
+                      <td className="px-3.5 py-2.5 sm:px-5 sm:py-3 text-muted">{unit || "—"}</td>
                     </tr>
                   ))}
                 </tbody>

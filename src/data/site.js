@@ -24,10 +24,10 @@ export const contact = {
 export const footerLinks = {
   shop: [
     { label: "All Gummies", href: "/shop" },
-    { label: "PMS Care Gummy", href: "/shop/pms-care-gummy" },
-    { label: "Gut Comfort Gummy", href: "/shop/gut-comfort-gummy" },
-    { label: "Daily Nutra Gummy", href: "/shop/daily-nutra-gummy" },
-    { label: "Iron Glow Gummy", href: "/shop/iron-glow-gummy" },
+    { label: "PMS Care Gummies", href: "/shop/pms-care-gummy" },
+    { label: "Gut Comfort Gummies", href: "/shop/gut-comfort-gummy" },
+    { label: "Daily Nutra Gummies", href: "/shop/daily-nutra-gummy" },
+    { label: "Iron Glow Gummies", href: "/shop/iron-glow-gummy" },
   ],
   company: [
     { label: "About Us", href: "/about" },

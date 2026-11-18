@@ -48,7 +48,7 @@ export default function Accordion({ items, defaultOpen = 0 }) {
                 "grid transition-[grid-template-rows,opacity] duration-300 ease-in-out motion-reduce:transition-none",
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
               )}
-              inert={!isOpen ? "" : undefined}
+              inert={!isOpen ? true : undefined}
             >
               <div className="overflow-hidden">
                 <p className="px-4 pb-4 sm:px-6 sm:pb-5 text-xs sm:text-sm leading-relaxed text-muted">{item.a}</p>
