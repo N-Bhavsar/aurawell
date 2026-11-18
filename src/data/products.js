@@ -86,7 +86,7 @@ export const products = [
     rating: 4.7,
     reviews: 98,
     reviewEyebrow: "Real Experiences.",
-    reviewTitle: "Better Period Conversations.",
+    reviewTitle: "Happier Gut, Happier Days.",
     benefits: [
       { icon: "activity", label: "2 Probiotic Strains" },
       { icon: "shield", label: "3.2 Billion CFU" },
@@ -138,7 +138,7 @@ export const products = [
     rating: 4.8,
     reviews: 156,
     reviewEyebrow: "Real Experiences.",
-    reviewTitle: "Better Period Conversations.",
+    reviewTitle: "Everyday Nutrition That Works.",
     benefits: [
       { icon: "shield", label: "16 Essential Nutrients" },
       { icon: "zap", label: "Daily Energy Support" },
@@ -200,7 +200,7 @@ export const products = [
     rating: 4.8,
     reviews: 110,
     reviewEyebrow: "Real Experiences.",
-    reviewTitle: "Better Period Conversations.",
+    reviewTitle: "Feel The Energy & Glow.",
     benefits: [
       { icon: "droplet", label: "10 mg Gentle Iron" },
       { icon: "sparkles", label: "76 mg Vitamin C (100% RDA)" },

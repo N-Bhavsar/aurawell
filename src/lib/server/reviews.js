@@ -47,15 +47,34 @@ export async function listApprovedReviews(productId, take = 20) {
   return rows.map(toPublic);
 }
 
-/** Homepage testimonials: featured approved reviews first, topped up with recent approved ones. */
+/** Homepage testimonials: featured approved reviews first, topped up with recent approved ones. Deduplicated by customer and quote. */
 export async function listHomepageReviews(take = 8) {
   const rows = await prisma.review.findMany({
     where: { status: "APPROVED", product: { isActive: true } },
     orderBy: [{ isFeatured: "desc" }, { rating: "desc" }, { createdAt: "desc" }],
-    take,
+    take: Math.max(take * 5, 50),
     select: PUBLIC_REVIEW_SELECT,
   });
-  return rows.map(toPublic);
+
+  const seenQuotes = new Set();
+  const seenCustomers = new Set();
+  const uniqueRows = [];
+
+  for (const row of rows) {
+    const quoteKey = (row.comment || "").trim().toLowerCase();
+    const customerKey = (row.customerName || "").trim().toLowerCase();
+
+    if (quoteKey && seenQuotes.has(quoteKey)) continue;
+    if (customerKey && seenCustomers.has(customerKey)) continue;
+
+    if (quoteKey) seenQuotes.add(quoteKey);
+    if (customerKey) seenCustomers.add(customerKey);
+    uniqueRows.push(row);
+
+    if (uniqueRows.length >= take) break;
+  }
+
+  return uniqueRows.map(toPublic);
 }
 
 const REPEAT_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
