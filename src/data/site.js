@@ -15,7 +15,7 @@ export const announcements = [
 ];
 
 export const contact = {
-  phone: "+91 87993 69547",
+  phone: "+91 95756 69166",
   email: "support@aaurawell.com",
   address: "Ahmedabad, Gujarat, India",
   hours: "Mon – Sat: 10:00 AM – 6:00 PM",

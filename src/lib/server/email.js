@@ -23,7 +23,7 @@ export function getTransporter() {
 export const escapeHtml = (value) =>
   String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-const SUPPORT = { phone: "+91 87993 69547", email: "support@aaurawell.com" };
+const SUPPORT = { phone: "+91 95756 69166", email: "support@aaurawell.com" };
 
 function formatDate(date) {
   return new Intl.DateTimeFormat("en-IN", { dateStyle: "long", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(date);

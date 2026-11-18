@@ -64,9 +64,16 @@ export const metadata = {
     canonical: "/",
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/apple-icon.svg", type: "image/svg+xml" }],
-    shortcut: ["/icon.svg"],
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/images/icons/icon.png", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/images/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: ["/favicon.ico"],
   },
   openGraph: {
     type: "website",
@@ -116,8 +123,8 @@ const structuredData = {
       logo: {
         "@type": "ImageObject",
         "@id": `${siteUrl}/#logo`,
-        url: `${siteUrl}/icon.svg`,
-        contentUrl: `${siteUrl}/icon.svg`,
+        url: `${siteUrl}/images/logo/logo.png`,
+        contentUrl: `${siteUrl}/images/logo/logo.png`,
         caption: "Aaurawell Nutra Logo",
       },
       contactPoint: {
