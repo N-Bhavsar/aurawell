@@ -44,7 +44,7 @@ export default function TestimonialCarousel({ testimonials }) {
   return (
     <div className="mt-8 sm:mt-12">
       <div className="flex items-center gap-4">
-        <button type="button" aria-label="Previous reviews" onClick={() => scroll(-1)} className={arrow}>
+        <button type="button" aria-label="Previous reviews" onClick={() => scroll(-1)} suppressHydrationWarning className={arrow}>
           <ChevronLeft className="size-5" />
         </button>
 
@@ -79,7 +79,7 @@ export default function TestimonialCarousel({ testimonials }) {
           ))}
         </ul>
 
-        <button type="button" aria-label="Next reviews" onClick={() => scroll(1)} className={arrow}>
+        <button type="button" aria-label="Next reviews" onClick={() => scroll(1)} suppressHydrationWarning className={arrow}>
           <ChevronRight className="size-5" />
         </button>
       </div>
@@ -93,6 +93,7 @@ export default function TestimonialCarousel({ testimonials }) {
               type="button"
               aria-label={`Go to testimonial ${i + 1}`}
               onClick={() => scrollToIndex(i)}
+              suppressHydrationWarning
               className="flex items-center justify-center p-2 active:scale-95"
             >
               <span

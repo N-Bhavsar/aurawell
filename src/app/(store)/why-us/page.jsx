@@ -3,6 +3,7 @@ import PageHeader from "@/components/ui/PageHeader";
 import TrustBadges from "@/components/ui/TrustBadges";
 import PromoBanner from "@/components/shop/PromoBanner";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
+import { getHomepageReviews } from "@/lib/catalog";
 
 export const metadata = {
   title: "Why Choose Aaurawell",
@@ -18,7 +19,9 @@ const reasons = [
   { icon: Sparkles, title: "Made for Modern Life", text: "Designed to fit your lifestyle and your everyday goals." },
 ];
 
-export default function WhyUsPage() {
+export default async function WhyUsPage() {
+  const reviews = await getHomepageReviews();
+
   return (
     <>
       <PageHeader title="Why Choose Aaurawell?" subtitle="Designed around you." breadcrumbs={[{ label: "Why Us" }]} />
@@ -45,7 +48,7 @@ export default function WhyUsPage() {
         </div>
       </section>
 
-      <TestimonialsSection />
+      <TestimonialsSection reviews={reviews} />
       <div className="bg-ivory pt-10 sm:pt-20">
         <PromoBanner script={["Small Gummies", "Big Wellness"]} cta={{ label: "Explore Our Products", href: "/shop" }} />
       </div>

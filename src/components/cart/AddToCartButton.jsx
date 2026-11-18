@@ -21,6 +21,7 @@ export default function AddToCartButton({ product, quantity = 1, className, chil
       type="button"
       onClick={handleClick}
       disabled={soldOut}
+      suppressHydrationWarning
       className={cn(
         "disabled:cursor-not-allowed disabled:opacity-50",
         "inline-flex items-center justify-center gap-2 rounded-full font-medium text-white transition-colors",

@@ -47,6 +47,7 @@ export default function ProductShowcase({ products }) {
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
+                suppressHydrationWarning
                 className={cn(
                   "shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-95",
                   isActive

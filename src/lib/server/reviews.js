@@ -13,8 +13,14 @@ const PUBLIC_REVIEW_SELECT = {
 };
 
 // Only the first name and last initial are shown publicly ("Priya Sharma" → "Priya S.").
+// Descriptive or aged customer labels (e.g. "Sample customer – 25 Years") are preserved as-is.
 function publicName(name) {
-  const parts = name.trim().split(/\s+/);
+  if (!name) return "";
+  const trimmed = name.trim();
+  if (trimmed.includes("–") || trimmed.includes(" - ") || /sample/i.test(trimmed)) {
+    return trimmed;
+  }
+  const parts = trimmed.split(/\s+/);
   return parts.length > 1 ? `${parts[0]} ${parts.at(-1)[0].toUpperCase()}.` : parts[0];
 }
 

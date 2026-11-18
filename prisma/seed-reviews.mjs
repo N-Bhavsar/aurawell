@@ -10,38 +10,22 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const SAMPLE_DOMAIN = "@sample.aurawell.invalid";
 
+const sharedReviews = [
+  ["Sample customer – 25 Years", 5, "Finally, something that fits into my daily wellness routine ❤️", "I wanted something simple that I could easily add to my everyday routine. The gummies are convenient, taste pleasant, and make my wellness routine feel a little more enjoyable.", true],
+  ["Sample customer – 28 Years", 5, "Taking care of myself, one day at a time", "I have started paying more attention to my monthly cycle and overall wellness. I love how easy these gummies are to include in my daily routine.", false],
+  ["Sample customer – 23 Years", 5, "Love the taste and the convenience!", "Most supplements feel like another task on my to-do list. These gummies are different. They are easy to take, taste good, and fit perfectly into my morning routine.", false],
+  ["Sample customer – 30 Years", 5, "A little self-care goes a long way 💗", "I wanted to become more consistent with my wellness habits. Having these gummies as part of my routine feels like a small reminder to prioritize myself.", true],
+  ["Sample customer – 26 Years", 5, "I actually look forward to taking my supplements!", "The taste is enjoyable, the packaging looks lovely, and I appreciate having a supplement that feels convenient rather than complicated.", false],
+  ["Sample customer – 27 Years", 5, "Wellness made simple", "I was looking for an easy way to incorporate ingredients associated with women's wellness into my daily routine. Aaurawell makes it simple and convenient.", false],
+  ["Sample customer – 24 Years", 5, "My new everyday wellness habit", "Consistency has always been difficult for me with traditional supplements. Gummies make my routine easier and more enjoyable.", false],
+  ["Sample customer – 31 Years", 5, "A thoughtful addition to my self-care routine", "I love products that make everyday wellness feel less complicated. These gummies are convenient, easy to incorporate, and a lovely addition to my routine.", false],
+];
+
 const reviews = {
-  "pms-care-gummy": [
-    ["Priya Sharma", 5, "Part of my monthly routine", "Tastes lovely and is so easy to remember. I keep a bottle on my desk and never skip it now.", true],
-    ["Ananya Iyer", 5, "Love the flavour", "The chaste berry flavour is pleasant, not too sweet. Much nicer than swallowing tablets.", false],
-    ["Sneha Patel", 4, "Nice and convenient", "Convenient and good quality. Packaging looks premium too. Would love a bigger bottle.", false],
-    ["Kavya Reddy", 5, "Finally a gummy I enjoy", "I've tried a few supplements before and always gave up. These are genuinely enjoyable to take.", false],
-    ["Meera Joshi", 4, "Good experience", "Soft texture, nice taste and the label is very clear about ingredients. Happy with my purchase.", false],
-    ["Riya Desai", 5, "Gifted one to my sister", "Liked it so much that I ordered another bottle for my sister. Fast delivery as well.", false],
-  ],
-  "gut-comfort-gummy": [
-    ["Rahul Mehta", 5, "Great amla taste", "Love the amla flavour. It has become a simple part of my morning — highly recommended.", true],
-    ["Arjun Nair", 4, "Easy to include daily", "No water needed, just one gummy after breakfast. Taste is fresh and slightly tangy.", false],
-    ["Pooja Shah", 5, "Whole family likes it", "My parents and I all take it. The gummies are soft and the bottle lasts the month.", false],
-    ["Vikram Singh", 4, "Solid product", "Good quality and transparent label. Would be great to have a two-bottle combo offer.", false],
-    ["Nisha Kulkarni", 5, "Pleasant surprise", "Didn't expect a gut care gummy to taste this good. Delivery was quick too.", false],
-    ["Karan Malhotra", 5, "Convenient for travel", "Very handy while travelling for work. Easy to carry and easy to remember.", false],
-  ],
-  "daily-nutra-gummy": [
-    ["Aarav Kapoor", 5, "Delicious orange flavour", "The orange flavour is delicious and the whole family enjoys them. Great quality.", true],
-    ["Ishita Bose", 5, "Better than tablets", "I always forgot my multivitamin tablets. With these gummies I haven't missed a day.", false],
-    ["Rohan Gupta", 4, "Good daily habit", "Nice taste, good packaging and clear ingredient list. Would buy again.", false],
-    ["Divya Menon", 5, "My kids' favourite bottle to look at", "Keeps well out of reach of the kids but they love the colourful jar! Tastes great for me.", false],
-    ["Siddharth Rao", 4, "Worth it", "Fair price for 30 gummies and the taste is not artificial. Happy overall.", false],
-    ["Tanvi Agarwal", 5, "Premium feel", "From the box to the jar, everything feels premium. Gummies are fresh and soft.", false],
-  ],
-  "iron-glow-gummy": [
-    ["Neha Trivedi", 5, "Finally consistent", "Great taste and lovely packaging. Finally a supplement I actually look forward to.", true],
-    ["Simran Kaur", 5, "Strawberry flavour is lovely", "Sweet strawberry taste without being sugary. Easily the nicest gummy I've tried.", false],
-    ["Aditi Verma", 4, "Nice product", "Soft texture and good flavour. The label clearly lists every ingredient, which I appreciate.", false],
-    ["Fatima Shaikh", 5, "Ordering again", "Finished my first bottle and already reordered. Smooth ordering and delivery experience.", false],
-    ["Pallavi Chauhan", 4, "Good taste", "Good taste and quality. Would love to see a family pack in future.", false],
-  ],
+  "pms-care-gummy": sharedReviews,
+  "gut-comfort-gummy": sharedReviews,
+  "daily-nutra-gummy": sharedReviews,
+  "iron-glow-gummy": sharedReviews,
 };
 
 async function main() {
@@ -68,7 +52,7 @@ async function main() {
       data: rows.map(([customerName, rating, title, comment, isFeatured], i) => ({
         productId: product.id,
         customerName,
-        customerEmail: `${customerName.toLowerCase().replace(/[^a-z]+/g, ".")}${SAMPLE_DOMAIN}`,
+        customerEmail: `${slug}.${customerName.toLowerCase().replace(/[^a-z0-9]+/g, ".")}${SAMPLE_DOMAIN}`,
         rating,
         title,
         comment,

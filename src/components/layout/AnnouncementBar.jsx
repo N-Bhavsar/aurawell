@@ -52,6 +52,7 @@ export default function AnnouncementBar({ announcements = [] }) {
         type="button"
         aria-label="Close announcement"
         onClick={() => setVisible(false)}
+        suppressHydrationWarning
         className="absolute top-1/2 right-1.5 flex size-6 -translate-y-1/2 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white sm:right-3 sm:size-7 active:scale-90"
       >
         <X className="size-3.5 sm:size-4" />

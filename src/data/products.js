@@ -33,6 +33,8 @@ export const products = [
     flavour: "Mix Berry",
     rating: 4.8,
     reviews: 120,
+    reviewEyebrow: "Real Experiences.",
+    reviewTitle: "Better Period Conversations.",
     benefits: [
       { icon: "leaf", label: "Botanical Blend" },
       { icon: "heart", label: "Vitamin B6 & Mg" },
@@ -83,6 +85,8 @@ export const products = [
     flavour: "Green Apple",
     rating: 4.7,
     reviews: 98,
+    reviewEyebrow: "Real Experiences.",
+    reviewTitle: "Better Period Conversations.",
     benefits: [
       { icon: "activity", label: "2 Probiotic Strains" },
       { icon: "shield", label: "3.2 Billion CFU" },
@@ -133,6 +137,8 @@ export const products = [
     flavour: "Orange",
     rating: 4.8,
     reviews: 156,
+    reviewEyebrow: "Real Experiences.",
+    reviewTitle: "Better Period Conversations.",
     benefits: [
       { icon: "shield", label: "16 Essential Nutrients" },
       { icon: "zap", label: "Daily Energy Support" },
@@ -193,6 +199,8 @@ export const products = [
     flavour: "Pomegranate",
     rating: 4.8,
     reviews: 110,
+    reviewEyebrow: "Real Experiences.",
+    reviewTitle: "Better Period Conversations.",
     benefits: [
       { icon: "droplet", label: "10 mg Gentle Iron" },
       { icon: "sparkles", label: "76 mg Vitamin C (100% RDA)" },

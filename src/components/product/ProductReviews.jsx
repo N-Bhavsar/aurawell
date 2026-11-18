@@ -16,7 +16,12 @@ function Stars({ rating, className, size = "size-3.5 sm:size-4" }) {
 const dateFormat = new Intl.DateTimeFormat("en-IN", { dateStyle: "medium" });
 
 // Review text is rendered as plain React text nodes — never as HTML.
-export default function ProductReviews({ product, reviews }) {
+export default function ProductReviews({
+  product,
+  reviews,
+  eyebrow = product?.reviewEyebrow || "Real Experiences.",
+  title = product?.reviewTitle || "Better Period Conversations.",
+}) {
   const distribution = [5, 4, 3, 2, 1].map((star) => ({ star, count: reviews.filter((r) => r.rating === star).length }));
   const max = Math.max(1, ...distribution.map((d) => d.count));
 
@@ -25,8 +30,8 @@ export default function ProductReviews({ product, reviews }) {
       <Botanical name="olive" className="right-0 bottom-0 w-32 -scale-x-100 opacity-25 sm:w-56" />
       <div className="container-page">
         <div className="mb-6 sm:mb-8 text-center lg:text-left">
-          <p className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-leaf uppercase">Real People. Real Wellness.</p>
-          <h2 className="mt-1.5 text-2xl sm:text-4xl font-semibold">Customer Reviews</h2>
+          <p className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-leaf uppercase">{eyebrow}</p>
+          <h2 className="mt-1.5 text-2xl sm:text-4xl font-semibold">{title}</h2>
         </div>
 
         <div className="grid items-start gap-6 lg:grid-cols-[340px_1fr] lg:gap-8">

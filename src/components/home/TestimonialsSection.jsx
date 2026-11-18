@@ -3,7 +3,11 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Botanical from "@/components/ui/Botanical";
 import TestimonialCarousel from "@/components/home/TestimonialCarousel";
 
-export default function TestimonialsSection({ reviews = [] }) {
+export default function TestimonialsSection({
+  reviews = [],
+  eyebrow = "Real Experiences.",
+  title = "Better Period Conversations.",
+}) {
   if (reviews.length === 0) return null;
 
   return (
@@ -19,7 +23,7 @@ export default function TestimonialsSection({ reviews = [] }) {
       <Botanical name="leaf" className="top-20 left-[8%] hidden w-10 -rotate-45 opacity-50 md:block" />
       <Botanical name="leafLight" className="right-[10%] bottom-10 hidden w-9 rotate-[70deg] opacity-50 md:block" />
       <div className="container-page relative">
-        <SectionHeading eyebrow="Real People. Real Wellness." title="Loved by Many" align="center" />
+        <SectionHeading eyebrow={eyebrow} title={title} align="center" />
         <TestimonialCarousel testimonials={reviews} />
       </div>
     </section>
